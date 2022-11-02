@@ -1,0 +1,8 @@
+{
+  "/users": {
+    "target": "http://localhost:3030",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

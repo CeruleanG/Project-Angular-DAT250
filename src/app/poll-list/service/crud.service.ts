@@ -11,7 +11,7 @@ export class CrudService {
   serviceURL : string ;
 
   constructor(private http : HttpClient) {
-    this.serviceURL = "http://localhost:3030/polls"
+    this.serviceURL = 'http://localhost:3030/polls'
   }
 
 
