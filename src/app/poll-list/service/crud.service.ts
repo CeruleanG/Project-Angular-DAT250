@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Poll } from '../../model/poll';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class CrudService {
   serviceURL : string ;
 
   constructor(private http : HttpClient) {
-    this.serviceURL = '/polls'
+    this.serviceURL = `${environment.apiUrl}/polls`
   }
 
 
