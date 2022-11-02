@@ -1,5 +1,5 @@
 {
-  "/users": {
+  "/polls": {
     "target": "http://localhost:3030",
     "secure": true,
     "changeOrigin": true,

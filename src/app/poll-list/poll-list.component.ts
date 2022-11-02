@@ -5,19 +5,6 @@ import {CrudService} from "./service/crud.service";
 import {HttpClient} from "@angular/common/http";
 
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from "rxjs";
-/*
-export class PollList {
-  constructor(
-    public votepoll_id : number,
-    public owner_id : number,
-    public subject : string,
-    public ispublic : number,
-    public status : number
-  ) {
-  }
-}
-*/
 
 
 @Component({
@@ -61,14 +48,16 @@ export class PollListComponent { //implements OnInit
   }
 
   addPoll() {
-    this.pollObj.subject = this.addPollSubject; //changed
-
-    if(this.addPollIspublic != true){
-      this.pollObj.ispublic = 1; //true
+    this.pollObj.topic = this.addPollSubject; //changed
+    this.pollObj.public = this.addPollIspublic;
+    /*if(this.addPollIspublic != true){
+      this.pollObj.public = true; //true
     }
     else {
-      this.pollObj.ispublic = 0; //false
+      this.pollObj.public = false; //false
     }
+    */
+
     //this.pollObj.owner_id = 2;  //put owned id here, do same for the other elements
     this.crudService.addPoll(this.pollObj).subscribe(res => {
       this.ngOnInit();

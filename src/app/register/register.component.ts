@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../model/user";
+import {UserProfile} from "../model/user";
 import {CrudService} from "./service/crud.service";
 import {Poll} from "../model/poll";
 
@@ -12,8 +12,8 @@ export class RegisterComponent implements OnInit {
 
   show = true;
 
-  userObj: User = new User();
-  userArr: User[] = [];
+  userObj: UserProfile = new UserProfile();
+  userArr: UserProfile[] = [];
 
   addUserLogin: string = '';
   addUserPwd1: string = '';
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userObj = new User();
+    this.userObj = new UserProfile();
     this.userArr = [];
     //this.getUserList();
   }
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  deletePoll(user: User) {
+  deletePoll(user: UserProfile) {
     this.crudService.deleteUser(user).subscribe(res => {
       this.ngOnInit();
     })

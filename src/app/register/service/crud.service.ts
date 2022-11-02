@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../model/user';
+import { UserProfile } from '../../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -15,29 +15,23 @@ export class CrudService {
   }
 
 
-  getUserList() : Observable<User[]> {
-    return this.http.get<User[]>(this.serviceURL);
+  getUserList() : Observable<UserProfile[]> {
+    return this.http.get<UserProfile[]>(this.serviceURL);
   }
-  getUser() : Observable<User[]> {
-    return this.http.get<User[]>(this.serviceURL);
-  }
-
-  addUser(user : User) : Observable<User> {
-    return this.http.post<User>(this.serviceURL,user);
+  getUser() : Observable<UserProfile[]> {
+    return this.http.get<UserProfile[]>(this.serviceURL);
   }
 
-  deleteUser(user : User) : Observable<User> {
-    return this.http.delete<User>(this.serviceURL+'/'+user.id);
+  addUser(user : UserProfile) : Observable<UserProfile> {
+    return this.http.post<UserProfile>(this.serviceURL,user);
   }
 
-  updateUser(user : User) : Observable<User> {
-    return this.http.put<User>(this.serviceURL+'/'+user.id,user);
+  deleteUser(user : UserProfile) : Observable<UserProfile> {
+    return this.http.delete<UserProfile>(this.serviceURL+'/'+user.id);
   }
 
-  /*
-  addUser
-  delete User
-  query user
+  updateUser(user : UserProfile) : Observable<UserProfile> {
+    return this.http.put<UserProfile>(this.serviceURL+'/'+user.id,user);
+  }
 
-  */
 }
