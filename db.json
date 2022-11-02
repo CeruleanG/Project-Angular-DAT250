@@ -1,0 +1,62 @@
+{
+  "polls": [
+    {
+      "id": 2,
+      "owner_id": 1,
+      "subject": "Do you like dogs ?",
+      "status": 0,
+      "ispublic": 1
+    },
+    {
+      "id": 1,
+      "owner_id": 2,
+      "subject": "Do you like the weather ?",
+      "status": 1,
+      "ispublic": 0
+    },
+    {
+      "id": 3,
+      "owner_id": 0,
+      "subject": "do you like apples ?",
+      "status": 0,
+      "ispublic": 0
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "login": "@",
+      "pwd": "password"
+    },
+    {
+      "id": 2,
+      "login": "delta@gmail.com",
+      "pwd": "delta"
+    },
+    {
+      "id": 3,
+      "login": "delta@gmail.com",
+      "pwd": "delta"
+    },
+    {
+      "id": 4,
+      "login": "delta@gmail.com",
+      "pwd": ""
+    },
+    {
+      "id": 5,
+      "login": "gmail@",
+      "pwd": "beta"
+    },
+    {
+      "id": 6,
+      "login": "dsds",
+      "pwd": "sdsd"
+    },
+    {
+      "id": 7,
+      "login": "jacob@gmail.com",
+      "pwd": "password"
+    }
+  ]
+}
