@@ -18,14 +18,16 @@ export class PollListComponent { //implements OnInit
   show = true;
 
   pollObj: Poll = new Poll();
+  pollQuery: Poll = new Poll();
   pollArr: Poll[] = [];
+  queryID: number;
 
   addPollSubject: string = '';
   addPollIspublic: boolean;
   updatePollIsopen: number;
   updatePollIsclosed: boolean;
 
-  //closeResult: string;
+  testcheckpoing: boolean;
 
   //polllist: PollList [];
 
@@ -38,7 +40,11 @@ export class PollListComponent { //implements OnInit
     this.updatePollIsopen;
     this.pollObj = new Poll();
     this.pollArr = [];
+    this.pollQuery = new Poll();
     this.getPollList();
+    this.queryPoll(this.queryID);
+
+    this.testcheckpoing;
   }
 
   getPollList() {
@@ -50,13 +56,13 @@ export class PollListComponent { //implements OnInit
   addPoll() {
     this.pollObj.topic = this.addPollSubject; //changed
     this.pollObj.public = this.addPollIspublic;
-    /*if(this.addPollIspublic != true){
+    /*if(this.addPollIspublic == true){
       this.pollObj.public = true; //true
     }
     else {
       this.pollObj.public = false; //false
-    }
-    */
+    }*/
+
 
     //this.pollObj.owner_id = 2;  //put owned id here, do same for the other elements
     this.crudService.addPoll(this.pollObj).subscribe(res => {
@@ -69,22 +75,22 @@ export class PollListComponent { //implements OnInit
       this.ngOnInit();
     })
   }
-/*
+
   openPoll(poll : Poll) {
-      this.pollObj.status = 1;
+      poll.status = 1;
       this.crudService.updatePoll(poll).subscribe(res => {
         this.ngOnInit();
       })
-   }
+  }
 
-    closePoll(poll : Poll) {
-        this.pollObj.status = 0;
-        this.pollObj.subject = "it works";
-        this.crudService.updatePoll(poll).subscribe(res => {
+  closePoll(poll : Poll) {
+    poll.status = 0;
+    //this.pollObj.topic = "it works";
+    this.crudService.updatePoll(poll).subscribe(res => {
           this.ngOnInit();
-        })
-      }
-      */
+    })
+  }
+
 
   updatePoll(poll : Poll) {
 
@@ -95,6 +101,17 @@ export class PollListComponent { //implements OnInit
     })
   }
 
+  queryPoll(iD : number){
+    this.crudService.queryPoll(iD).subscribe(res => {
+      this.pollQuery = res;
+    });
+  }
+
+  /*queryPoll(poll : Poll){
+    this.crudService.queryPoll(poll).subscribe(res => {
+      this.pollObj = res;
+    });
+  }*/
 
 
 }

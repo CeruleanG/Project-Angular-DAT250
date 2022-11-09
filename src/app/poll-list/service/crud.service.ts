@@ -33,6 +33,14 @@ export class CrudService {
     return this.http.put<Poll>(this.serviceURL+'/'+poll.id,poll);
   }
 
+  /*trial for querying a poll*/
+  /*queryPoll (poll : Poll) :Observable<Poll> {
+   return this.http.get<Poll>(this.serviceURL+'/'+poll.id);
+  }*/
+  queryPoll (iD : number) :Observable<Poll> {
+    return this.http.get<Poll>(this.serviceURL+'/'+iD);
+  }
+
   /*
   addUser
   delete User
