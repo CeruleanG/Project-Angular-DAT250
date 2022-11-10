@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserProfile} from "../model/user"
 import {CrudService} from "./service/crud.service";
 import {Poll} from "../model/poll";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   userObj: UserProfile = new UserProfile();
   userQuery: UserProfile = new UserProfile();
   userArr: UserProfile[] = [];
+  idFound: number;
   queryID: number;
 
   addUserLogin: string = '';
@@ -23,8 +25,10 @@ export class LoginComponent implements OnInit {
   matchResult: boolean;
 
 
+  teststring: string;
 
-  constructor(private crudService: CrudService) { }
+
+  constructor(private crudService: CrudService,private router: Router) { }
 
 
   ngOnInit(): void {
@@ -49,6 +53,8 @@ export class LoginComponent implements OnInit {
     for(let user of this.userArr){
       if( (user.login === this.addUserLogin) && (user.pwd === this.addUserPwd) ) {
         this.matchResult = true;
+        this.idFound = user.id;
+        this.router.navigateByUrl("/user/"+user.id);
         return;
       }
     }

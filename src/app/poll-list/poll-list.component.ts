@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Poll} from "../model/poll";
 import {CrudService} from "./service/crud.service";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import {HttpClient} from "@angular/common/http";
 
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {UserProfile} from "../model/user";
 
 
 @Component({
@@ -22,29 +24,36 @@ export class PollListComponent { //implements OnInit
   pollArr: Poll[] = [];
   queryID: number;
 
+  user: UserProfile;
+
   addPollSubject: string = '';
   addPollIspublic: boolean;
-  updatePollIsopen: number;
-  updatePollIsclosed: boolean;
 
-  testcheckpoing: boolean;
+  testString: string | null;
+
+
 
   //polllist: PollList [];
 
-  constructor(private crudService: CrudService) { }
+  constructor(private crudService: CrudService, private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
     this.addPollSubject = '';
-    this.addPollIspublic ;
-    this.updatePollIsopen;
+
     this.pollObj = new Poll();
     this.pollArr = [];
     this.pollQuery = new Poll();
     this.getPollList();
     this.queryPoll(this.queryID);
+    /*this.route.queryParams.subscribe(params => {
+        //this.queryUser(params.get('id'));
+        this.testString = params[':id'];
+        //this.testString = "this.user.login";
+    });*/
 
-    this.testcheckpoing;
+    this.queryUser(Number(this.route.snapshot.paramMap.get("id")));
+
   }
 
   getPollList() {
@@ -94,7 +103,6 @@ export class PollListComponent { //implements OnInit
 
   updatePoll(poll : Poll) {
 
-    this.pollObj.status = this.updatePollIsopen;
     //this.pollObj.subject = "it works";
     this.crudService.updatePoll(this.pollObj).subscribe(res => {
       this.ngOnInit();
@@ -104,6 +112,14 @@ export class PollListComponent { //implements OnInit
   queryPoll(iD : number){
     this.crudService.queryPoll(iD).subscribe(res => {
       this.pollQuery = res;
+      return res;
+    });
+  }
+  queryUser(iD : number)
+  {
+    this.crudService.queryUser(iD).subscribe(res => {
+      this.user = res;
+      return res;
     });
   }
 

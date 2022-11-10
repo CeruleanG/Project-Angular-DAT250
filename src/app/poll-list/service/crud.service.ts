@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Poll } from '../../model/poll';
 import { environment } from 'src/environments/environment';
+import {UserProfile} from "../../model/user";
 
 
 @Injectable({
@@ -39,6 +40,9 @@ export class CrudService {
   }*/
   queryPoll (iD : number) :Observable<Poll> {
     return this.http.get<Poll>(this.serviceURL+'/'+iD);
+  }
+  queryUser (iD : number) :Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${environment.apiUrl}/users`+'/'+iD);
   }
 
   /*

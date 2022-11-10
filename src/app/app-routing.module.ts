@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {CanActivate, RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -11,6 +11,7 @@ const routes: Routes = [
 
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent},
+    { path: 'user/:id', component: PollListComponent},
   { path: 'register', component: RegisterComponent},
 
   { path: 'poll-list', component: PollListComponent },
@@ -19,6 +20,13 @@ const routes: Routes = [
 
 
 ];
+
+//A test when a URL request is received. It can allow or deny the access.
+class MyGuard implements CanActivate {
+  canActivate() {
+    return true;
+  }
+}
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
