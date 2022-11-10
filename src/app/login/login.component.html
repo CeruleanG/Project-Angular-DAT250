@@ -5,17 +5,18 @@
     <form action="" method="post">
       <h2 class="text-center">Log in</h2>
       <div>&nbsp;</div>
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Username" required="required">
+      <div xclass="form-group">
+        <input type="text" class="form-control" placeholder="Username" required="required" name="Login" [(ngModel)]="addUserLogin">
       </div>
       <div>&nbsp;</div>
       <div class="form-group">
-        <input type="password" class="form-control" placeholder="Password" required="required">
+        <input type="password" class="form-control" placeholder="Password" required="required" name="Pwd" [(ngModel)]="addUserPwd">
       </div>
       <div>&nbsp;</div>
       <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-primary btn-block btn-lg">Log in</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="matchLogin()">Log in</button>
       </div>
+      {{matchResult}}
       <!--
       <div class="clearfix">
         <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
@@ -42,4 +43,5 @@
       </div>
     </div>
   </form>
+
 </div>

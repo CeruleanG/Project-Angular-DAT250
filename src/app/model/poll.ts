@@ -8,7 +8,7 @@ export class Poll {
   public status : number = 0;
   public owner : UserProfile;
   public participants : []; // list of user profile
-  public public : boolean ;
+  public publicAccess : boolean ;
 
 }
 

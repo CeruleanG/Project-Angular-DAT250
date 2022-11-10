@@ -55,7 +55,7 @@ export class PollListComponent { //implements OnInit
 
   addPoll() {
     this.pollObj.topic = this.addPollSubject; //changed
-    this.pollObj.public = this.addPollIspublic;
+    this.pollObj.publicAccess = this.addPollIspublic;
     /*if(this.addPollIspublic == true){
       this.pollObj.public = true; //true
     }

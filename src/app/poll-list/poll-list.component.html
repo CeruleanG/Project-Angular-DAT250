@@ -29,7 +29,7 @@
         <td>{{poll.id}}</td>
         <td>{{poll.topic}}</td>
         <td>{{poll.status}}</td>
-        <td>{{poll.public}}</td>
+        <td>{{poll.publicAccess}}</td>
         <td>
           <div class="btn-group" >
               <button type="button" class="btn btn-success btn-sm" (click)="openPoll(poll)">Open</button>
@@ -100,7 +100,6 @@
          <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="addPollIspublic">
           <label class="form-check-label" for="flexCheckDefault">Make poll public</label>
-           {{addPollIspublic}}
         </div>
       <div>&nbsp;</div>
        <div class="d-grid gap-2">
