@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserProfile} from "../model/user";
 import {CrudService} from "./service/crud.service";
 import {Poll} from "../model/poll";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,10 @@ export class RegisterComponent implements OnInit {
   addUserPwd1: string = '';
   addUserPwd2: string = '';
 
-  constructor(private crudService: CrudService) { }
+  matchResult: string;
+  idFound: number;
+
+  constructor(private crudService: CrudService,private routeNext: Router) { }
 
   ngOnInit(): void {
 
@@ -28,11 +32,7 @@ export class RegisterComponent implements OnInit {
     //this.getUserList();
   }
 
-  getUserList() {
-    this.crudService.getUserList().subscribe(res => {
-      this.userArr = res;
-    });
-  }
+
 
   getUser(){
     this.crudService.getUserList().subscribe(res => {
@@ -42,23 +42,37 @@ export class RegisterComponent implements OnInit {
   }
 
   addUser() {
-    this.userObj.login = this.addUserLogin;
-    if(this.addUserPwd1 != this.addUserPwd2){
-      //error
-    }
-    else {
-      this.userObj.pwd = this.addUserPwd1;
-      this.crudService.addUser(this.userObj).subscribe(res => {
-        this.ngOnInit();
-      })
-    }
+    this.crudService.getUserList().subscribe(res => {
+      this.userArr = res;
+      if(this.userArr.some((user) => user.login === this.addUserLogin)){
+        this.matchResult = "Username already taken";
+        return;
+      }
+    });
 
+    this.userObj.login = this.addUserLogin;
+
+    if(this.addUserPwd1 != this.addUserPwd2){
+      this.matchResult = "Passwords aren't matching";
+      return;
+    }
+    this.userObj.pwd = this.addUserPwd1;
+    this.crudService.addUser(this.userObj).subscribe(res => {});
+    this.matchResult = this.addUserLogin;
+    this.routeNext.navigateByUrl("/login");
+
+    return;
   }
 
   deletePoll(user: UserProfile) {
     this.crudService.deleteUser(user).subscribe(res => {
       this.ngOnInit();
     })
+  }
+  getUserList() {
+    this.crudService.getUserList().subscribe(res => {
+      this.userArr = res;
+    });
   }
 
 }

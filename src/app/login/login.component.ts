@@ -22,10 +22,10 @@ export class LoginComponent implements OnInit {
 
   addUserLogin: string = '';
   addUserPwd: string = '';
-  matchResult: boolean;
-
+  guestParticipate: number;
 
   teststring: string;
+  testStringGuest: string;
 
 
   constructor(private crudService: CrudService,private router: Router) { }
@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.addUserLogin = '';
     this.addUserPwd = '';
-    this.matchResult;
     this.userObj = new UserProfile();
     this.userArr = [];
     this.userQuery = new UserProfile();
@@ -52,13 +51,12 @@ export class LoginComponent implements OnInit {
     this.getUserList();
     for(let user of this.userArr){
       if( (user.login === this.addUserLogin) && (user.pwd === this.addUserPwd) ) {
-        this.matchResult = true;
         this.idFound = user.id;
         this.router.navigateByUrl("/user/"+user.id);
         return;
       }
     }
-    this.matchResult = false;
+    this.teststring = "Username or Password incorrect";
     return;
   }
 
@@ -89,6 +87,24 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  guestVote(){
+    const iD: number = Number(this.guestParticipate);
+    this.crudService.queryPoll(iD).subscribe(res => {
+      this.testStringGuest = "Been here";
+      if (res.id == -1) {
+        //error for not found poll
+        this.testStringGuest = "poll not found: id=" + res.id + "/" + this.guestParticipate;
+        return;
+      }
 
+      if (!res.publicAccess) {
+        //error for not having public access
+        this.testStringGuest = "The poll is not public, please log in first";
+        return;
+      }
+      this.testStringGuest = "Success";
+      this.router.navigateByUrl("/user/"+0+"/poll/"+res.id);
+    });
+  }
 
 }

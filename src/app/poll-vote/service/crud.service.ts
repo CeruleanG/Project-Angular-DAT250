@@ -34,15 +34,6 @@ export class CrudService {
     return this.http.put<Poll>(this.serviceURL+'/'+poll.id,poll);
   }
 
-  getUserList() : Observable<UserProfile[]> {
-    return this.http.get<UserProfile[]>(`${environment.apiUrl}/users`);
-  }
-
-
-  userParticipatesPoll(user: UserProfile,poll : Poll) : Observable<UserProfile> {
-    return this.http.put<UserProfile>(`${environment.apiUrl}/users`+'/'+user.id+'/participates/'+poll.id,null);
-  }
-
   /*trial for querying a poll*/
   /*queryPoll (poll : Poll) :Observable<Poll> {
    return this.http.get<Poll>(this.serviceURL+'/'+poll.id);
@@ -52,6 +43,9 @@ export class CrudService {
   }
   queryUser (iD : number) :Observable<UserProfile> {
     return this.http.get<UserProfile>(`${environment.apiUrl}/users`+'/'+iD);
+  }
+  getUserList() : Observable<UserProfile[]> {
+    return this.http.get<UserProfile[]>(`${environment.apiUrl}/users`);
   }
 
   /*

@@ -1,13 +1,13 @@
 <div>&nbsp;</div>
+<button type="button" class="btn btn-info btn-sm" (click)="logOut()">< Log Out</button>
 <h2 class="text-center">Hello! {{user.login}}</h2>
 <div>&nbsp;</div><div>&nbsp;</div>
-
 <body>
 <div class="container">
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
-        <div class="col-sm-8"><h2><b>List of polls : </b></h2></div>
+        <div class="col-sm-8"><h2><b>My Polls : </b></h2></div>
 
         <p></p>
       </div>
@@ -19,6 +19,7 @@
         <th>Question</th>
         <th>Status</th>
         <th>Public</th>
+        <th>Result</th>
         <th>Actions</th>
 
       </tr>
@@ -31,12 +32,13 @@
         <td>{{poll.topic}}</td>
         <td>{{poll.status}}</td>
         <td>{{poll.publicAccess}}</td>
+        <td>{{poll.yesNb}}/{{poll.noNb}}</td>
         <td>
           <div class="btn-group" >
-              <button type="button" class="btn btn-success btn-sm" (click)="openPoll(poll)">Open</button>
-              <button type="button" class="btn btn-warning btn-sm" (click)="closePoll(poll)">Close</button>
-             <!-- <button type="button" class="btn btn-secondary btn-sm">Edit</button> -->
+            <button type="button" class="btn btn-info btn-sm" (click)="openPoll(poll)">Open</button>
+            <button type="button" class="btn btn-info btn-sm" (click)="closePoll(poll)">Close</button>
             <button type="button" class="btn btn-danger btn-sm" (click)="deletePoll(poll)">Delete</button>
+
           </div>
         </td>
       </tr>
@@ -46,56 +48,14 @@
 </div>
 <div>&nbsp;</div>
 
-<!-- testing area -->
-<!--
-<div class="container">
-  <div class="table-wrapper">
-    <div class="table-title">
-      <div class="row">
-        <div class="col-sm-8"><h2><b>List of polls : </b></h2></div>
-        <p></p>
-      </div>
-    </div>
-    <table class="table table-bordered" >
-      <thead>
-      <tr>
-        <th style="width:70px">Poll ID</th>
-        <th>Question</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
 
-
-      <tbody>
-      <tr *ngFor="let poll of pollArr">
-        <td>{{poll.id}}</td>
-        <td>{{poll.subject}}</td>
-        <td>{{poll.status}}</td>
-        <td>
-
-
-          <div class="btn-group" >
-            <button type="button" class="btn btn-primary btn-sm" (click)="updatePoll(poll)">open</button>
-
-            <button type="button" class="btn btn-danger btn-sm" (click)="deletePoll(poll)">Delete</button>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div>&nbsp;</div>
--->
-<!-- testing area -->
 <div class="container">
   <div class="table-title">
     <div class="row">
       <div class="col-sm-8"><h2><b>Add a new poll : </b></h2></div>
         <p></p>
         <label for="subject">Question :</label><br>
-        <input type="text" id="subject" name="subject" [(ngModel)]="addPollSubject"><br>
+        <input type="text" id="subject" name="subject" required="required" [(ngModel)]="addPollSubject"><br>
         <div>&nbsp;</div>
       <!--<input type="number" id="ispublic" name="ispublic" [(ngModel)]="addPollIspublic"><br>   -->
          <div class="form-check">
@@ -110,120 +70,24 @@
   </div>
 </div>
 
+<div>&nbsp;</div> <div>&nbsp;</div> <div>&nbsp;</div>
+<div class="container">
+  <form action="" method="post">
+    <div class="col-sm-8"><h2><b>Participate a Poll : </b></h2></div>
+
+    <div>&nbsp;</div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Poll Number" required="required" name="PollNumber" [(ngModel)]="participateID">
+      <div>&nbsp;</div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="toVotePoll()">Submit Poll Number</button>
+        {{testString}}
+      </div>
+    </div>
+  </form>
+
+</div>
+
 
 </body>
 
-<!-- test-->
-<!--
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>  <div>
-    <label for="subject">Subject</label>
-    <div class="input-group">
-      <input id="subject" name="subject" ngModel>
-    </div>
-  </div>
-  <div>
-    <label for="ispublic">Public (type 1 for yes and 0 for no)</label>
-    <div class="input-group">
-      <input id="ispublic" name="public" ngModel>
-    </div>
-  </div>
-  <div class="border text-center">
-    <button class="btn btn-info">Submit</button>
-  </div>
-</form>
-
--->
-
-
-
-
-<!--
-<div>&nbsp;</div><div>&nbsp;</div><div>&nbsp;</div>
-<div class="col-sm-8"><h2><b>Create a new poll : </b></h2></div>
-
-
-<div class="container-fluid bg-light">
-  <div class="container bg-light">
-
-    <div class="row mt-4" style="height: 500px;">
-      <div class="col"></div>
-      <div class="col-md-12 bg-white shadow">
-
-        <div class="card bg-primary mt-4">
-          <h4 class="text-white p-3 pt-2 pb-2">Here is your list of polls : </h4>
-        </div>
-
-        <div class="shadow">
-          <div class="input-group p-4">
-            <input type="text" class="form-control" placeholder="Enter task " name="task" >
-            <button class="btn btn-outline-success" type="button" >+</button>
-          </div>
-        </div>
-        <h4 class="text-primary mt-4">Tasks : </h4>
-
-
-
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="input-group p-4">
-                  <input type="text" class="form-control" placeholder="Enter task " name="task" >
-                  <button class="btn btn-outline-success" type="button" data-bs-dismiss="modal" >Update</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="col"></div>
-
-    </div>
-
-  </div>
-</div>
-
-
--->
-
-<!--
-<h1>To Do List Application</h1>
-
-<h5>Enter A New Task</h5>
-<label for="desc">Description:</label><br>
-<input type="text" id="desc" name="desc" ><br>
-<label for="sum">Summary:</label><br>
-<input type="text" id="sum" name="sum" ><br>
-
-<button >Add</button>
-<button >Refresh</button>
-
-<div>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Description</th>
-      <th>Summary</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr >
-      <th>id</th>
-      <th>task_name</th>
-      <th>task_sum</th>
-      <th>
-        <button>Delete</button>
-      </th>
-    </tr>
-    </tbody>
-  </table>
-</div>
--->

@@ -5,9 +5,9 @@ export class Poll {
   public topic : string = '';
   public yesNb : number = 0;
   public noNb : number = 0;
-  public status : number = 0;
+  public status : boolean;
   public owner : UserProfile;
-  public participants : []; // list of user profile
+  public participants : UserProfile[]; // list of user profile
   public publicAccess : boolean ;
 
 }

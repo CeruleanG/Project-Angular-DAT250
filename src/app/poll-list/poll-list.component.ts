@@ -19,33 +19,30 @@ export class PollListComponent { //implements OnInit
   title = 'PollList';
   show = true;
 
+  AccessToken: boolean = false;
+  user: UserProfile;
+
   pollObj: Poll = new Poll();
   pollQuery: Poll = new Poll();
   pollArr: Poll[] = [];
   queryID: number;
 
-  user: UserProfile;
-
   addPollSubject: string = '';
   addPollIspublic: boolean;
 
+  participateID: number;
+
   testString: string | null;
 
-
-
-  //polllist: PollList [];
-
-  constructor(private crudService: CrudService, private route: ActivatedRoute) { }
+  constructor(private crudService: CrudService, private route: ActivatedRoute, private routeNext: Router) { }
 
 
   ngOnInit(): void {
     this.addPollSubject = '';
 
     this.pollObj = new Poll();
-    this.pollArr = [];
     this.pollQuery = new Poll();
-    this.getPollList();
-    this.queryPoll(this.queryID);
+
     /*this.route.queryParams.subscribe(params => {
         //this.queryUser(params.get('id'));
         this.testString = params[':id'];
@@ -53,30 +50,23 @@ export class PollListComponent { //implements OnInit
     });*/
 
     this.queryUser(Number(this.route.snapshot.paramMap.get("id")));
-
+    this.getPollList();
   }
 
   getPollList() {
     this.crudService.getPollList().subscribe(res => {
-      this.pollArr = res;
+      this.pollArr = res.filter((poll)=>{return poll.owner.id === this.user.id});
     });
   }
 
   addPoll() {
     this.pollObj.topic = this.addPollSubject; //changed
     this.pollObj.publicAccess = this.addPollIspublic;
-    /*if(this.addPollIspublic == true){
-      this.pollObj.public = true; //true
-    }
-    else {
-      this.pollObj.public = false; //false
-    }*/
-
-
-    //this.pollObj.owner_id = 2;  //put owned id here, do same for the other elements
+    this.pollObj.owner = this.user;
     this.crudService.addPoll(this.pollObj).subscribe(res => {
       this.ngOnInit();
-    })
+    });
+
   }
 
   deletePoll(poll: Poll) {
@@ -86,14 +76,14 @@ export class PollListComponent { //implements OnInit
   }
 
   openPoll(poll : Poll) {
-      poll.status = 1;
+      poll.status = true;
       this.crudService.updatePoll(poll).subscribe(res => {
         this.ngOnInit();
       })
   }
 
   closePoll(poll : Poll) {
-    poll.status = 0;
+    poll.status = false;
     //this.pollObj.topic = "it works";
     this.crudService.updatePoll(poll).subscribe(res => {
           this.ngOnInit();
@@ -111,6 +101,7 @@ export class PollListComponent { //implements OnInit
 
   queryPoll(iD : number){
     this.crudService.queryPoll(iD).subscribe(res => {
+      this.pollQuery = new Poll();
       this.pollQuery = res;
       return res;
     });
@@ -123,49 +114,33 @@ export class PollListComponent { //implements OnInit
     });
   }
 
-  /*queryPoll(poll : Poll){
-    this.crudService.queryPoll(poll).subscribe(res => {
-      this.pollObj = res;
+  toVotePoll()
+  {
+    const iD: number = this.participateID;
+    this.crudService.queryPoll(iD).subscribe(res => {
+      if (res.id == -1) {
+        //error for not found poll
+        this.testString = "poll not found: id=" + res.id + "/" + this.participateID;
+        return;
+      }
+
+      if (res.owner.id == this.user.id) {
+        //error for voting your own poll
+        this.testString = "this is your own poll";
+        return;
+      }
+      //if (res.participants.includes(this.user)) {
+      if(res.participants.some((item) => item.id == this.user.id)){
+        //error for voting a poll you already voted for
+        this.testString = "you have already voted";
+        return;
+      }
+      this.testString = "success "+iD+"/"+res.id;
+      this.routeNext.navigateByUrl("/user/"+this.user.id+"/poll/"+res.id);
     });
-  }*/
-
-
-}
-/*
-  getPollList()
-    {
-      this.httpClient.get<any>(this.serviceURL).subscribe(
-        response => {
-          this.pollArr = response;
-        }
-      );
-    }
-
-  addPoll(){
-
-    this.pollObj.subject = this.addPollSubject; //changed
-    this.pollObj.ispublic = this.addPollIspublic;
-
-
-    this.httpClient.post(this.serviceURL,this.pollObj).subscribe(response => {
-        this.ngOnInit(); //reload the table
-      });
-
-*/
-
-/*
-getPollList(){
-  this.httpClient.get<any>('http://localhost:3000/poll').subscribe(
-    response => {
-      console.log(response);
-      this.polllist = response;
-    }
-  ); //will have to change url when we get the working API
-}
-*/
-
-/* //from to do list assignment
-  getAllTask() : Observable<Task[]> {
-    return this.http.get<Task[]>(this.serviceURL);
   }
-*/
+
+  logOut(){
+    this.routeNext.navigateByUrl("/login");
+  }
+}

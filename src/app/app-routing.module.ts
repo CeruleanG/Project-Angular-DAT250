@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent},
     { path: 'user/:id', component: PollListComponent},
+      { path: 'user/:id/poll/:idPoll', component: PollVoteComponent},
   { path: 'register', component: RegisterComponent},
 
   { path: 'poll-list', component: PollListComponent },

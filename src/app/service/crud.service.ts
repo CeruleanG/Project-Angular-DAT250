@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Poll } from '../../model/poll';
+import { Poll } from '../model/poll';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class CrudService {
   }
 
   deletePoll(poll : Poll) : Observable<Poll> {
-    return this.http.delete<Poll>(this.serviceURL+'/'+poll.votepoll_id);
+    return this.http.delete<Poll>(this.serviceURL+'/'+poll.id);
   }
 
 }
