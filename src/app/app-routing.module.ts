@@ -9,6 +9,7 @@ import { PollVoteComponent } from './poll-vote/poll-vote.component';
 
 const routes: Routes = [
 
+  { path:'',redirectTo:'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent},
     { path: 'user/:id', component: PollListComponent},
